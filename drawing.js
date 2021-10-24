@@ -15,7 +15,7 @@ function drawPath(canvas, ctx, points, colorFill, colorStroke, closePath=true, d
             var point = points[i];
             ctx.beginPath();
             ctx.arc(point[0],point[1], 3, 0, 2 * Math.PI);
-            ctx.fillStyle = "#005";
+            ctx.fillStyle = "#050";
             ctx.fill(); 
         }
     }
@@ -41,7 +41,7 @@ function drawPath(canvas, ctx, points, colorFill, colorStroke, closePath=true, d
 function redrawRoad(){
     road_ctx.clearRect(0, 0, road_canvas.width, road_canvas.height);
     drawPath(road_canvas, road_ctx, [[0,road_canvas.height-STD_CENTER],
-                                     [road_canvas.width,road_canvas.height-STD_CENTER]], "#f000", "#f00", false,false);
+                                     [road_canvas.width,road_canvas.height-STD_CENTER]], "#0000", "#333", false,false);
     drawPath(road_canvas, road_ctx, road, "#CAFFDD", "#96CFA6", true);
     drawPath(road_canvas, road_ctx, road_pattern, "#96FFAA", "#74AD83", true, false);
     //drawPath(road_canvas, road_ctx, road, "#96ffaa", "#74ad83", finish);

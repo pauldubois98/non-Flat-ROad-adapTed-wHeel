@@ -43,7 +43,11 @@ function calculate_wheel(STEP_SIZE=2){
         // dt = Math.sqrt(STEP_SIZE**2 + dt**2);
         alpha += Math.atan2(STEP_SIZE, y);
     }
-    wheel_polar = wheel_polar.concat([ [2*Math.PI,wheel_polar[wheel_polar.length-1][1]] ]);
+    x -= STEP_SIZE;
+    x += (2*Math.PI-wheel_polar[wheel_polar.length-1][0]) * STEP_SIZE / (alpha-wheel_polar[wheel_polar.length-1][0]);
+    y = radius(x);
+    wheel_polar = wheel_polar.concat([ [2*Math.PI,y] ]);
+    // wheel_polar = wheel_polar.concat([ [2*Math.PI,wheel_polar[wheel_polar.length-1][1]] ]);
     road_pattern_length = x;
     road_pattern_end = (road_canvas.height-STD_CENTER) + radius(x);
 }
@@ -68,7 +72,7 @@ function calculate_demo_road(STEP_SIZE=2){
         x += STEP_SIZE;
         alpha += Math.atan2(STEP_SIZE, radius(x));
         if(x >= road_pattern_length){
-            x = 0;
+            x -= road_pattern_length;
             j++;
         }
     }
@@ -110,16 +114,18 @@ function calculate_demo_bis(){
         i--;
     }
     // road
-    var j = 0;
-    x = demo_road[i][0]-demo_bis_x;
+    var x = demo_road[i][0]-demo_bis_x;
+    var prev = demo_road[i][0];
     demo_road_bis = [[0,demo_canvas_bis.height,0]];
     while(x<=demo_canvas_bis.width){
         demo_road_bis = demo_road_bis.concat([[x,demo_road[i][1],demo_road[i][2]]]);
-        x = (j*road_pattern_length) + demo_road[i][0] - demo_bis_x;
         i++;
+        x += (demo_road[i][0]-prev);
+        prev = demo_road[i][0];
         if(demo_road[i][0]>=road_pattern_length){
+            prev = 0
+            x -= demo_road[i][0]-road_pattern_length;
             i=1;
-            j++;
         }
     }
     demo_road_bis = demo_road_bis.concat([[x,demo_road[i][1],demo_road[i][2]]]);
