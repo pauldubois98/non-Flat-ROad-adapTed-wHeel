@@ -38,18 +38,20 @@ function drawPath(canvas, ctx, points, colorFill, colorStroke, closePath=true, d
     ctx.stroke();
 }
 
-function redrawRoad(finish=true){
+function redrawRoad(){
     road_ctx.clearRect(0, 0, road_canvas.width, road_canvas.height);
-    drawPath(road_canvas, road_ctx, [[0,STD_CENTER],[road_canvas.width,STD_CENTER]], "#f000", "#f00", false,false);
-    drawPath(road_canvas, road_ctx, road, "#CAFFDD", "#96CFA6", finish);
+    drawPath(road_canvas, road_ctx, [[0,road_canvas.height-STD_CENTER],
+                                     [road_canvas.width,road_canvas.height-STD_CENTER]], "#f000", "#f00", false,false);
+    drawPath(road_canvas, road_ctx, road, "#CAFFDD", "#96CFA6", true);
+    drawPath(road_canvas, road_ctx, road_pattern, "#96FFAA", "#74AD83", true, false);
     //drawPath(road_canvas, road_ctx, road, "#96ffaa", "#74ad83", finish);
 }
 
 
-function redrawDemo(finish=true){
+function redrawDemo(){
     demo_ctx.clearRect(0, 0, demo_canvas.width, demo_canvas.height);
-    //drawPath(road_canvas, road_ctx, [[0,STD_CENTER],[road_canvas.width,STD_CENTER]], "#f000", "#f00", false,false);
     //drawPath(road_canvas, road_ctx, road, "#caffdd", "#96cfa6", finish);
-    drawPath(demo_canvas, demo_ctx, wheel_cartesian, "#61D8FF", "#309488", true,false);
+    drawPath(demo_canvas, demo_ctx, demo_road, "#96FFAA", "#74AD83", true, false);
+    drawPath(demo_canvas, demo_ctx, demo_wheel, "#61D8FF", "#309488", true,false);
 }
 
