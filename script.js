@@ -45,6 +45,15 @@ var demo_wheel_y = demo_canvas.height/2;
 var demo_wheel_angle = 0;
 var demo_road = [];
 
+var demo_bis_x = 0;
+var demo_road_bis = 0;
+var demo_wheel_bis = 0;
+var demo_wheel_bis_x = demo_canvas.width/2;
+var demo_wheel_bis_y = 0;
+var demo_wheel_bis_angle = 0;
+var DEMO_MOUSE_DOWN_BIS = false;
+var DEMO_MOUSE_DOWN_BIS_X = 0;
+
 
 
 demo_canvas.addEventListener('mousedown', function(event) {
@@ -63,7 +72,29 @@ demo_canvas.addEventListener('mousemove', function(event) {
 demo_canvas.addEventListener('mouseup', function(event) {
     DEMO_MOUSE_DOWN = false;
     demo_wheel_x = event.pageX-demoLeft;
-    calculate_and_draw();
+    calculate_demo_wheel();
+    redrawDemo();
+});
+
+demo_canvas_bis.addEventListener('mousedown', function(event) {
+    DEMO_MOUSE_DOWN_BIS = true;
+    DEMO_MOUSE_DOWN_BIS_X = event.pageX-demoLeft_bis;
+    calculate_demo_bis();
+    redrawDemoBis();
+});
+demo_canvas_bis.addEventListener('mousemove', function(event) {
+    if(DEMO_MOUSE_DOWN_BIS){
+        demo_bis_x -= (event.pageX-demoLeft_bis)-DEMO_MOUSE_DOWN_BIS_X;
+        DEMO_MOUSE_DOWN_BIS_X = event.pageX-demoLeft_bis;
+        calculate_demo_bis();
+        redrawDemoBis();
+    }
+});
+demo_canvas_bis.addEventListener('mouseup', function(event) {
+    DEMO_MOUSE_DOWN_BIS = false;
+    demo_bis_x -= (event.pageX-demoLeft)-DEMO_MOUSE_DOWN_BIS_X;
+    calculate_demo_bis();
+    redrawDemoBis();
 });
 
 road_canvas.addEventListener('click', function(event) {
@@ -176,9 +207,11 @@ edit_road_btn.addEventListener('click', function(event){
 
 function calculate_and_draw(){
     calculate_wheel();
+    calculate_road_pattern();
     calculate_demo_road();
     calculate_demo_wheel();
-    calculate_road_pattern();
+    calculate_demo_bis();
+    redrawDemoBis();
     redrawRoad();
     redrawDemo();
 }
