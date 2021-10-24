@@ -53,5 +53,6 @@ function redrawDemo(){
     //drawPath(road_canvas, road_ctx, road, "#caffdd", "#96cfa6", finish);
     drawPath(demo_canvas, demo_ctx, demo_road, "#96FFAA", "#74AD83", true, false);
     drawPath(demo_canvas, demo_ctx, demo_wheel, "#61D8FF", "#309488", true,false);
+    drawCircle(demo_ctx, demo_wheel_x,demo_wheel_y, 1, "#000", "#000")
 }
 

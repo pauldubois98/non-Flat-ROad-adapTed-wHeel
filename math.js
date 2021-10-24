@@ -73,7 +73,7 @@ function calculate_demo_road(STEP_SIZE=2){
         }
     }
     demo_road = demo_road.concat([[x+j*road_pattern_length,demo_canvas.height-road_height(x),alpha],
-                                  [demo_canvas.width,demo_canvas.height,alpha],]);
+                                  [demo_canvas.width,demo_canvas.height,alpha]]);
 }
 
 
@@ -83,33 +83,31 @@ function calculate_demo_wheel(){
     while(demo_road[i][0]<demo_wheel_x && i<demo_road.length-3){
         i++;
     }
-    demo_wheel_y = demo_canvas.height-radius_max
-    if(Math.abs(road[i+1][2]-road[i][2])>Math.PI){
-        demo_wheel_angle = road[i][2]+((demo_wheel_x-road[i][0])*(road[i+1][2]-road[i][2]+2*Math.PI)/(road[i+1][0]-road[i][0]));
+    demo_wheel_y = demo_canvas.height-STD_CENTER;
+    if(Math.abs(demo_road[i+1][2]-demo_road[i][2])>Math.PI){
+        demo_wheel_angle = demo_road[i][2]+((demo_wheel_x-demo_road[i][0])*(demo_road[i+1][2]-demo_road[i][2]+2*Math.PI)/(demo_road[i+1][0]-demo_road[i][0]));
     } else{
-        demo_wheel_angle = road[i][2]+((demo_wheel_x-road[i][0])*(road[i+1][2]-road[i][2])/(road[i+1][0]-road[i][0]));
+        demo_wheel_angle = demo_road[i][2]+((demo_wheel_x-demo_road[i][0])*(demo_road[i+1][2]-demo_road[i][2])/(demo_road[i+1][0]-demo_road[i][0]));
     }
-    //demo_wheel_angle = road[i][2];
-    demo_wheel_polar = [];
-    demo_wheel_cartesian = [];
+    //demo_wheel_angle = demo_road[i][2];
+    demo_wheel = [];
     for(var j=0; j<wheel_polar.length; j++){
         var a = wheel_polar[j][0]-demo_wheel_angle-Math.PI/2;
         var r = wheel_polar[j][1];
-        demo_wheel_polar = demo_wheel_polar.concat([[ a,r ]]);
-        demo_wheel_cartesian = demo_wheel_cartesian.concat([ cartesian(a, r, c_x=demo_wheel_x, c_y=demo_wheel_y) ]);
+        demo_wheel = demo_wheel.concat([ cartesian(a, r, c_x=demo_wheel_x, c_y=demo_wheel_y) ]);
     }
 }
 
 
-function calculate_demo_wheel(){
-    demo_wheel_angle = 0;
+// function calculate_demo_wheel(){
+//     demo_wheel_angle = 0;
 
 
-    demo_wheel = [];
-    for(i=0; i<wheel_polar.length; i++){
-        demo_wheel = demo_wheel.concat( [cartesian(wheel_polar[i][0], wheel_polar[i][1], demo_wheel_x,demo_wheel_y)] );
-    }
-}
+//     demo_wheel = [];
+//     for(i=0; i<wheel_polar.length; i++){
+//         demo_wheel = demo_wheel.concat( [cartesian(wheel_polar[i][0], wheel_polar[i][1], demo_wheel_x,demo_wheel_y)] );
+//     }
+// }
 
 
 
