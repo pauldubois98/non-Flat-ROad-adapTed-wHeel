@@ -14,13 +14,11 @@ var demoLeft_bis = demo_canvas_bis.offsetLeft + demo_canvas_bis.clientLeft;
 var demoTop_bis = demo_canvas_bis.offsetTop + demo_canvas_bis.clientTop;
 
 var new_road_btn = document.getElementById("new_road_btn");
-var finish_road_btn = document.getElementById("finish_road_btn");
 var edit_road_btn = document.getElementById("edit_road_btn");
 
 const STD_RADIUS = 55;
 const STD_CENTER = 155;
-var ROAD_DRAWING = true;
-var ROAD_EDITING = false;
+var ROAD_EDITING = true;
 var ROAD_EDITING_ON = false;
 var road = [[0,road_canvas.height],
             [0,road_canvas.height-STD_RADIUS],
@@ -70,10 +68,20 @@ demo_canvas.addEventListener('mousemove', function(event) {
     }
 });
 demo_canvas.addEventListener('mouseup', function(event) {
-    DEMO_MOUSE_DOWN = false;
-    demo_wheel_x = event.pageX-demoLeft;
-    calculate_demo_wheel();
-    redrawDemo();
+    if(DEMO_MOUSE_DOWN){
+        DEMO_MOUSE_DOWN = false;
+        demo_wheel_x = event.pageX-demoLeft;
+        calculate_demo_wheel();
+        redrawDemo();
+    }
+});
+demo_canvas.addEventListener('mouseleave', function(event) {
+    if(DEMO_MOUSE_DOWN){
+        DEMO_MOUSE_DOWN = false;
+        demo_wheel_x = event.pageX-demoLeft;
+        calculate_demo_wheel();
+        redrawDemo();
+    }
 });
 
 demo_canvas_bis.addEventListener('mousedown', function(event) {
@@ -91,25 +99,22 @@ demo_canvas_bis.addEventListener('mousemove', function(event) {
     }
 });
 demo_canvas_bis.addEventListener('mouseup', function(event) {
-    DEMO_MOUSE_DOWN_BIS = false;
-    demo_bis_x -= (event.pageX-demoLeft)-DEMO_MOUSE_DOWN_BIS_X;
-    calculate_demo_bis();
-    redrawDemoBis();
+    if(DEMO_MOUSE_DOWN_BIS){
+        DEMO_MOUSE_DOWN_BIS = false;
+        demo_bis_x -= (event.pageX-demoLeft)-DEMO_MOUSE_DOWN_BIS_X;
+        calculate_demo_bis();
+        redrawDemoBis();
+    }
+});
+demo_canvas_bis.addEventListener('mouseleave', function(event) {
+    if(DEMO_MOUSE_DOWN_BIS){
+        DEMO_MOUSE_DOWN_BIS = false;
+        demo_bis_x -= (event.pageX-demoLeft)-DEMO_MOUSE_DOWN_BIS_X;
+        calculate_demo_bis();
+        redrawDemoBis();
+    }
 });
 
-road_canvas.addEventListener('click', function(event) {
-    // console.log('[' + (event.pageX-roadLeft) + ',' + (event.pageY-roadTop) +']');
-    var x = event.pageX-roadLeft;
-    var y = event.pageY-roadTop;
-    if(ROAD_DRAWING){
-        var i = 0;
-        while(i<road.length && road[i][0]<=x){
-            i++;
-        }
-        road.splice(i,0, [x, y] );
-        calculate_and_draw();
-    };
-});
 road_canvas.addEventListener('mousedown', function(event) {
     var x = event.pageX-roadLeft;
     var y = event.pageY-roadTop;
@@ -153,16 +158,25 @@ road_canvas.addEventListener('mousedown', function(event) {
 road_canvas.addEventListener('mousemove', function(event) {
     if(ROAD_EDITING_ON){
         if(road[editing_point_index][0]+event.pageX-roadLeft-editing_start_x>road[editing_point_index-1][0]
-            && road[editing_point_index][0]+event.pageX-roadLeft-editing_start_x<road[editing_point_index+1][0]){
+            && road[editing_point_index][0]+event.pageX-roadLeft-editing_start_x<road[editing_point_index+1][0]
+            && editing_point_index!=1 && editing_point_index!=road.length-2){
             road[editing_point_index][0] += event.pageX-roadLeft-editing_start_x;
             editing_start_x = event.pageX-roadLeft;
         }
-        road[editing_point_index][1] += event.pageY-roadTop-editing_start_y;
-        editing_start_y = event.pageY-roadTop;
+        if(road[editing_point_index][1]+event.pageY-roadTop-editing_start_y>road_canvas.height-STD_CENTER){
+            road[editing_point_index][1] += event.pageY-roadTop-editing_start_y;
+            editing_start_y = event.pageY-roadTop;
+        }
         redrawRoad();
         drawCircle(road_ctx,
             road[editing_point_index][0],
             road[editing_point_index][1], 5, "#FFF0", "#F00");
+    };
+});
+road_canvas.addEventListener('mouseleave', function(event) {
+    if(ROAD_EDITING_ON){
+        ROAD_EDITING_ON = false;
+        calculate_and_draw();
     };
 });
 road_canvas.addEventListener('mouseup', function(event) {
@@ -181,24 +195,16 @@ new_road_btn.addEventListener('click', function(event){
             [0,road_canvas.height-STD_RADIUS],
             [road_canvas.width,road_canvas.height-STD_RADIUS],
             [road_canvas.width,road_canvas.height]];
-    ROAD_DRAWING=true;
-    ROAD_EDITING=false;
-    edit_road_btn.textContent = "Edit Road OFF";
-    calculate_and_draw();
-});
-finish_road_btn.addEventListener('click', function(event){
-    ROAD_DRAWING=false;
-    ROAD_EDITING=false;
+    ROAD_EDITING=true;
+    edit_road_btn.textContent = "Edit Road ON";
     calculate_and_draw();
 });
 edit_road_btn.addEventListener('click', function(event){
     ROAD_DRAWING=false;
     if (ROAD_EDITING){
-        ROAD_DRAWING=false;
         ROAD_EDITING=false;
         edit_road_btn.textContent = "Edit Road OFF";
     } else{
-        ROAD_DRAWING=false;
         ROAD_EDITING=true;
         edit_road_btn.textContent = "Edit Road ON";
     };
