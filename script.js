@@ -157,9 +157,9 @@ road_canvas.addEventListener('mousedown', function(event) {
 });
 road_canvas.addEventListener('mousemove', function(event) {
     if(ROAD_EDITING_ON){
-        if(road[editing_point_index][0]+event.pageX-roadLeft-editing_start_x>road[editing_point_index-1][0]
-            && road[editing_point_index][0]+event.pageX-roadLeft-editing_start_x<road[editing_point_index+1][0]
-            && editing_point_index!=1 && editing_point_index!=road.length-2){
+        if(road[editing_point_index][0]+event.pageX-roadLeft-editing_start_x>0 &&
+           road[editing_point_index][0]+event.pageX-roadLeft-editing_start_x<road_canvas.width &&
+           editing_point_index!=1 && editing_point_index!=road.length-2){
             road[editing_point_index][0] += event.pageX-roadLeft-editing_start_x;
             editing_start_x = event.pageX-roadLeft;
         }

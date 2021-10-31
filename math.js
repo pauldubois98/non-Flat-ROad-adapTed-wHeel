@@ -29,6 +29,7 @@ function radius(x){
 
 
 function calculate_wheel(STEP_SIZE=2){
+    road = road.sort(function (a,b){return a[0]-b[0]});
     var x = 0;
     var alpha = 0;
     var y = radius(x);
