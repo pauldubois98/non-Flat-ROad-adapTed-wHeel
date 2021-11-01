@@ -16,6 +16,14 @@ var demoTop_bis = demo_canvas_bis.offsetTop + demo_canvas_bis.clientTop;
 var new_road_btn = document.getElementById("new_road_btn");
 var edit_road_btn = document.getElementById("edit_road_btn");
 
+var draw_spikes_btn = document.getElementById("draw_spikes_btn");
+var number_spikes_input = document.getElementById("number_spikes");
+var draw_square_btn = document.getElementById("draw_square_btn");
+var number_squares_input = document.getElementById("number_squares");
+var draw_sine_btn = document.getElementById("draw_sine_btn");
+var number_sine_input = document.getElementById("number_sine");
+var snap_btn = document.getElementById("snap_btn");
+
 const STD_RADIUS = 55;
 const STD_CENTER = 155;
 var ROAD_EDITING = true;
@@ -130,7 +138,7 @@ road_canvas.addEventListener('mousedown', function(event) {
                 editing_point_index = i;
             }
         }
-        if(editing_point_index ==0 || editing_point_index == road.length-1){
+        if(editing_point_index==0 || editing_point_index==road.length-1){
             editing_point_index = -1;
         }
         if(event.button == 0 && editing_point_index>=0){
@@ -212,6 +220,13 @@ edit_road_btn.addEventListener('click', function(event){
     };
     calculate_and_draw();
 });
+snap_btn.addEventListener('click', function(event){
+    calculate_wheel();
+    calculate_road_pattern();
+    calculate_demo_road();
+    snap_road();
+    calculate_and_draw();
+})
 
 function calculate_and_draw(){
     calculate_wheel();

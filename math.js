@@ -165,3 +165,70 @@ function calculate_demo_bis(){
 }
 
 
+
+function snap_road(){
+    var last_point_index=0;
+    while(road[last_point_index][0]<=road_pattern_length){
+        last_point_index++;
+    }
+    last_point_index--;
+    var last_point_x = road[last_point_index][0];
+    var last_point_y = road[last_point_index][1];
+    var last_point_radius = last_point_y  - (road_canvas.height-STD_CENTER);
+    var last_point_angle = 0;
+    var i=0;
+    while(demo_road[i][0]<=last_point_x){
+        i++;
+    }
+    i--;
+    if(Math.abs(demo_road[i+1][2]-demo_road[i][2])>Math.PI){
+        last_point_angle = demo_road[i][2]+((last_point_x-demo_road[i][0])*(demo_road[i+1][2]-demo_road[i][2]+2*Math.PI)/(demo_road[i+1][0]-demo_road[i][0]));
+    } else{
+        last_point_angle = demo_road[i][2]+((last_point_x-demo_road[i][0])*(demo_road[i+1][2]-demo_road[i][2])/(demo_road[i+1][0]-demo_road[i][0]));
+    }
+    var remaining_angle = 2*Math.PI - last_point_angle;
+    var end_y = road[1][1];
+    var end_radius = end_y - (road_canvas.height-STD_CENTER);
+    // // EXACT SOLVING
+    var a = (1/remaining_angle)*Math.log(end_radius/last_point_radius);
+    var end_x = last_point_x + ((end_radius-last_point_radius)/a);
+    if(isNaN(end_x)){
+        window.alert("Calculation Error.");
+    } else if(end_x>=road_canvas.width){
+        window.alert("The pattern will not fit in the canvas.");
+    } else{
+        i=0;
+        var new_road = []
+        while(i<road.length){
+            if(road[i][0]<=last_point_x || road[i][0]>=end_x){
+                new_road = new_road.concat([road[i]]);
+            }
+            i++;
+        }
+        road = new_road.concat([[end_x,end_y]]);
+    }
+    // //INEXACT SOLVING
+    // var start_x = last_point_x;
+    // var start_y = last_point_y;
+    // var min_end_x = last_point_x;
+    // var max_end_x = road[last_point_index+1][0];
+    // var EPSILON=0.001;
+    // var STEP_SIZE=2;
+    // while(max_end_x-min_end_x > EPSILON){
+    //     var end_x = (min_end_x+max_end_x)/2;
+    //     var x = start_x;
+    //     var alpha = 0;
+    //     while(alpha<remaining_angle && x<end_x){
+    //         x += STEP_SIZE;
+    //         y = ( start_y+ ((x-start_x)*(end_y-start_y)/(end_x-start_x)) ) - (road_canvas.height-STD_CENTER);
+    //         alpha += Math.atan2(STEP_SIZE, y);
+    //     }
+    //     if(x<=end_x){
+    //         max_end_x = end_x;
+    //     } else{
+    //         min_end_x = end_x;
+    //     }
+    // }
+    // var end_x = (a+b)/2;
+    // road = road.concat([[end_x,end_y]])
+}
