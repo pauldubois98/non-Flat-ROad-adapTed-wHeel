@@ -141,9 +141,11 @@ road_canvas.addEventListener('mousedown', function(event) {
                 road[editing_point_index][0],
                 road[editing_point_index][1], 5, "#FFF0", "#F00");
         }
-        if(event.button == 2 && editing_point_index>=0){
-            road = road.slice(0,editing_point_index).concat(road.slice(editing_point_index+1));
-        }
+        if(event.button == 2 && editing_point_index>=0
+            && editing_point_index!=road.length-2
+            && editing_point_index!=1 ){
+                road = road.slice(0,editing_point_index).concat(road.slice(editing_point_index+1));
+            }
         if(event.button == 2 && editing_point_index==-1){
             var i = 0;
             while(i<road.length && road[i][0]<=x){
