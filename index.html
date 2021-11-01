@@ -4,11 +4,9 @@
 <head>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- others -->
   <meta charset="utf-8" />
-  <title>nON-circular Wheel Adapted RoaD</title>
+  <title>non-Flat-ROad-adapTed-wHeel</title>
   <meta name="description" content="Adapting the wheel to various shape of roads">
   <meta name="keywords" content="Wheels,Road,Maths">
   <meta name="author" content="Paul Dubois">
@@ -23,10 +21,22 @@
         <h2>non-Flat ROad adapTed wHeel</h2>
     </header>
     <main>
-        <div>
-            <button id="new_road_btn">New Road</button>
-            <button id="edit_road_btn">Edit Road OFF</button>
-        </div>
+        <nav>
+            <button id="new_road_btn"><img src="svg/restart_black_24dp.svg" class="icon">New Wheel</button>
+            <button id="edit_road_btn"><img src="svg/gesture_black_24dp.svg" class="icon">Edit ON</button>
+            <span style="width: 60px;"></span>
+            <input id="number_spikes" type="number" min="1" max="10" placeholder="2" value="2" step="1" style="width: 75px;">
+            <button id="draw_spikes_btn"><img src="svg/spikes_black_24dp.svg" class="icon">Draw Spikes</button>
+            <span style="width: 20px;"></span>
+            <input id="number_squares" type="number" min="1" max="10" placeholder="2" value="2" step="1" style="width: 75px;">
+            <button id="draw_square_btn"><img src="svg/square_black_24dp.svg" class="icon">Draw Square</button>
+            <span style="width: 20px;"></span>
+            <input id="number_sine" type="number" min="1" max="10" placeholder="2" value="2" style="width: 75px;">
+            <button id="draw_sine_btn"><img src="svg/sine_black_24dp.svg" class="icon">Draw Sine</button>
+            <span style="width: 40px;"></span>
+            <button id="snap_btn"><img src="svg/snap_black_24dp.svg" class="icon">Snap Path Ends</button>
+        </nav>
+        <br>
         <canvas id="road_canvas" height="200" width="750"></canvas>
         <br>
         <p>(right click to add/delete a point; left click to move a point)</p>
