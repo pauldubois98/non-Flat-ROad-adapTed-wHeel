@@ -24,24 +24,25 @@ var draw_sine_btn = document.getElementById("draw_sine_btn");
 var number_sine_input = document.getElementById("number_sine");
 var snap_btn = document.getElementById("snap_btn");
 
-const STD_RADIUS = 55;
+const STD_HEIGHT = 55;
 const STD_CENTER = 155;
+const STD_RADIUS = STD_CENTER-STD_HEIGHT;
 var ROAD_EDITING = true;
 var ROAD_EDITING_ON = false;
 var road = [[0,road_canvas.height],
-            [0,road_canvas.height-STD_RADIUS],
-            [road_canvas.width,road_canvas.height-STD_RADIUS],
+            [0,road_canvas.height-STD_HEIGHT],
+            [road_canvas.width,road_canvas.height-STD_HEIGHT],
             [road_canvas.width,road_canvas.height]];
 var road_pattern = [[0,road_canvas.height],
-                    [0,road_canvas.height-STD_RADIUS],
-                    [road_canvas.width,road_canvas.height-STD_RADIUS],
+                    [0,road_canvas.height-STD_HEIGHT],
+                    [road_canvas.width,road_canvas.height-STD_HEIGHT],
                     [road_canvas.width,road_canvas.height]];
 var editing_start_x = 0;
 var editing_start_y = 0;
 var editing_point_index = 0;
 
 var road_pattern_length = road_canvas.width;
-var road_pattern_end = road_canvas.height-STD_RADIUS;
+var road_pattern_end = road_canvas.height-STD_HEIGHT;
 var wheel_polar = [];
 
 var DEMO_MOUSE_DOWN = false;
@@ -202,8 +203,8 @@ road_canvas.oncontextmenu = function(e){
 
 new_road_btn.addEventListener('click', function(event){
     road = [[0,road_canvas.height],
-            [0,road_canvas.height-STD_RADIUS],
-            [road_canvas.width,road_canvas.height-STD_RADIUS],
+            [0,road_canvas.height-STD_HEIGHT],
+            [road_canvas.width,road_canvas.height-STD_HEIGHT],
             [road_canvas.width,road_canvas.height]];
     ROAD_EDITING=true;
     edit_road_btn.textContent = "Edit Road ON";
@@ -226,7 +227,69 @@ snap_btn.addEventListener('click', function(event){
     calculate_demo_road();
     snap_road();
     calculate_and_draw();
-})
+});
+draw_spikes_btn.addEventListener('click', function(event){
+    var AMPLITUDE = 20;
+    var R1 = STD_RADIUS+AMPLITUDE;
+    var R2 = STD_RADIUS-AMPLITUDE;
+    var n = number_spikes_input.value;
+    n = check(n);
+    number_spikes_input.value = n;
+    road = [[0,road_canvas.height]];
+    var L = (R1-R2)/(Math.log(R1/R2)*(2*n/Math.PI))
+    for(var i=0; i<n; i++){
+
+        road = road.concat([[ i*4*L, road_canvas.height-STD_CENTER + STD_RADIUS],
+                            [ (i*4+1)*L, road_canvas.height-STD_CENTER + R1],
+                            [ (i*4+2)*L, road_canvas.height-STD_CENTER + STD_RADIUS],
+                            [ (i*4+3)*L, road_canvas.height-STD_CENTER + R2]]);
+    }
+    road = road.concat([[ 4*n*L, road_canvas.height-STD_CENTER + STD_RADIUS],
+                        [road_canvas.width,road_canvas.height-STD_HEIGHT],
+                        [road_canvas.width,road_canvas.height]]);
+    calculate_and_draw();
+});
+draw_square_btn.addEventListener('click', function(event){
+    var AMPLITUDE = 20;
+    var R1 = STD_RADIUS+AMPLITUDE;
+    var R2 = STD_RADIUS-AMPLITUDE;
+    var n = number_squares_input.value;
+    n = check(n);
+    number_squares_input.value = n
+    road = [[0,road_canvas.height]];
+    for(var i=0; i<n; i++){
+        road = road.concat([[ (i*2*Math.PI*R1/(2*n))+ (i*2*Math.PI*R2/(2*n)), road_canvas.height-STD_CENTER + R1],
+                            [ ((i+1)*2*Math.PI*R1/(2*n)) + (i*2*Math.PI*R2/(2*n)), road_canvas.height-STD_CENTER + R1],
+                            [ ((i+1)*2*Math.PI*R1/(2*n)) + (i*2*Math.PI*R2/(2*n)), road_canvas.height-STD_CENTER + R2],
+                            [ ((i+1)*2*Math.PI*R1/(2*n)) + ((i+1)*2*Math.PI*R2/(2*n)), road_canvas.height-STD_CENTER + R2]]);
+    }
+    road = road.concat([[ (Math.PI*R1) + (Math.PI*R2) + 1, road_canvas.height-STD_HEIGHT],
+                        [road_canvas.width,road_canvas.height-STD_HEIGHT],
+                        [road_canvas.width,road_canvas.height]]);
+    calculate_and_draw();
+});
+draw_sine_btn.addEventListener('click', function(event){
+    var AMPLITUDE = 20;
+    var STEP_SIZE = 5;
+    var n = number_sine_input.value;
+    n = check(n, false);
+    number_sine_input.value = n;
+    var D = Math.sqrt( (STD_RADIUS**2) + (AMPLITUDE**2) );
+    // because road isn't a perfect sine curve (we use a piecewise linear approximation),
+    // we need to adjust the value of D:
+    D = D*0.96;
+    var a = n/D;
+    road = [[0,road_canvas.height]];
+    var x = 0;
+    while(x<=2*Math.PI*D){
+        road = road.concat([[x, road_canvas.height-STD_CENTER + STD_RADIUS-(AMPLITUDE*Math.sin(a*x)) ]]);
+        x += STEP_SIZE;
+    }
+    road = road.concat([[2*Math.PI*D + STEP_SIZE, road_canvas.height-STD_HEIGHT],
+                        [road_canvas.width,road_canvas.height-STD_HEIGHT],
+                        [road_canvas.width,road_canvas.height]]);
+    calculate_and_draw();
+});
 
 function calculate_and_draw(){
     calculate_wheel();

@@ -47,8 +47,8 @@ function calculate_wheel(STEP_SIZE=2){
     if(x>=road_canvas.width-STEP_SIZE){
         window.alert("The pattern will not fit in the canvas.");
         road = [[0,road_canvas.height],
-            [0,road_canvas.height-STD_RADIUS],
-            [road_canvas.width,road_canvas.height-STD_RADIUS],
+            [0,road_canvas.height-STD_HEIGHT],
+            [road_canvas.width,road_canvas.height-STD_HEIGHT],
             [road_canvas.width,road_canvas.height]];
         ROAD_DRAWING=true;
         ROAD_EDITING=false;
@@ -189,46 +189,60 @@ function snap_road(){
     var remaining_angle = 2*Math.PI - last_point_angle;
     var end_y = road[1][1];
     var end_radius = end_y - (road_canvas.height-STD_CENTER);
-    // // EXACT SOLVING
-    var a = (1/remaining_angle)*Math.log(end_radius/last_point_radius);
-    var end_x = last_point_x + ((end_radius-last_point_radius)/a);
-    if(isNaN(end_x)){
-        window.alert("Calculation Error.");
-    } else if(end_x>=road_canvas.width){
-        window.alert("The pattern will not fit in the canvas.");
-    } else{
-        i=0;
-        var new_road = []
-        while(i<road.length){
-            if(road[i][0]<=last_point_x || road[i][0]>=end_x){
-                new_road = new_road.concat([road[i]]);
+    if(remaining_angle>0.1 && Math.abs(last_point_y-end_y)>1){
+        // // EXACT SOLVING
+        var a = (1/remaining_angle)*Math.log(end_radius/last_point_radius);
+        var end_x = last_point_x + ((end_radius-last_point_radius)/a);
+        if(isNaN(end_x)){
+            window.alert("Calculation Error.");
+        } else if(end_x>=road_canvas.width){
+            window.alert("The pattern will not fit in the canvas.");
+        } else{
+            i=0;
+            var new_road = []
+            while(i<road.length){
+                if(road[i][0]<=last_point_x || road[i][0]>=end_x){
+                    new_road = new_road.concat([road[i]]);
+                }
+                i++;
             }
-            i++;
+            road = new_road.concat([[end_x,end_y]]);
         }
-        road = new_road.concat([[end_x,end_y]]);
+        // //INEXACT SOLVING
+        // var start_x = last_point_x;
+        // var start_y = last_point_y;
+        // var min_end_x = last_point_x;
+        // var max_end_x = road[last_point_index+1][0];
+        // var EPSILON=0.001;
+        // var STEP_SIZE=2;
+        // while(max_end_x-min_end_x > EPSILON){
+        //     var end_x = (min_end_x+max_end_x)/2;
+        //     var x = start_x;
+        //     var alpha = 0;
+        //     while(alpha<remaining_angle && x<end_x){
+        //         x += STEP_SIZE;
+        //         y = ( start_y+ ((x-start_x)*(end_y-start_y)/(end_x-start_x)) ) - (road_canvas.height-STD_CENTER);
+        //         alpha += Math.atan2(STEP_SIZE, y);
+        //     }
+        //     if(x<=end_x){
+        //         max_end_x = end_x;
+        //     } else{
+        //         min_end_x = end_x;
+        //     }
+        // }
+        // var end_x = (a+b)/2;
+        // road = road.concat([[end_x,end_y]])
+    } // (else ignore)
+}
+function check(n, integer=true, positive=true, maxi=true, maxi_val=20){
+    if(positive && n<=0){
+        return 1;
     }
-    // //INEXACT SOLVING
-    // var start_x = last_point_x;
-    // var start_y = last_point_y;
-    // var min_end_x = last_point_x;
-    // var max_end_x = road[last_point_index+1][0];
-    // var EPSILON=0.001;
-    // var STEP_SIZE=2;
-    // while(max_end_x-min_end_x > EPSILON){
-    //     var end_x = (min_end_x+max_end_x)/2;
-    //     var x = start_x;
-    //     var alpha = 0;
-    //     while(alpha<remaining_angle && x<end_x){
-    //         x += STEP_SIZE;
-    //         y = ( start_y+ ((x-start_x)*(end_y-start_y)/(end_x-start_x)) ) - (road_canvas.height-STD_CENTER);
-    //         alpha += Math.atan2(STEP_SIZE, y);
-    //     }
-    //     if(x<=end_x){
-    //         max_end_x = end_x;
-    //     } else{
-    //         min_end_x = end_x;
-    //     }
-    // }
-    // var end_x = (a+b)/2;
-    // road = road.concat([[end_x,end_y]])
+    if(maxi && n>maxi_val){
+        return maxi_val;
+    }
+    if(integer && n!=Math.round(n)){
+        return Math.round(n);
+    }
+    return n;
 }
