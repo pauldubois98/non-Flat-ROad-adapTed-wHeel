@@ -76,11 +76,11 @@ function local_collision(UPDATE_ICON=true){
     }
     local_collision_points_indexes = local_collision_points_indexes.sort();
     if(UPDATE_ICON){
-        // if(local_collision_points_indexes.length != 0){
-        //     local_collision_icon.src="svg/local_red_24dp.svg"
-        // } else{
-        //     local_collision_icon.src="svg/local_green_24dp.svg"
-        // }
+        if(local_collision_points_indexes.length != 0){
+            local_collision_icon.src="svg/local_red_24dp.svg"
+        } else{
+            local_collision_icon.src="svg/local_green_24dp.svg"
+        }
     }
     return local_collision_points_indexes.length != 0;
 }
@@ -114,11 +114,11 @@ function global_collision(TOL_ANGLE=Math.PI/6, UPDATE_ICON=true){
         }
     }
     if(UPDATE_ICON){
-        // if(global_collision_points_indexes.length != 0){
-        //     global_collision_icon.src="svg/global_red_24dp.svg"
-        // } else{
-        //     global_collision_icon.src="svg/global_green_24dp.svg"
-        // }
+        if(global_collision_points_indexes.length != 0){
+            global_collision_icon.src="svg/global_red_24dp.svg"
+        } else{
+            global_collision_icon.src="svg/global_green_24dp.svg"
+        }
     }
     return global_collision_points_indexes.length != 0;
 }

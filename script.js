@@ -23,6 +23,10 @@ var number_squares_input = document.getElementById("number_squares");
 var draw_sine_btn = document.getElementById("draw_sine_btn");
 var number_sine_input = document.getElementById("number_sine");
 var snap_btn = document.getElementById("snap_btn");
+var local_collision_btn = document.getElementById("local_collision_btn");
+var local_collision_icon = document.getElementById("local_collision_icon");
+var global_collision_btn = document.getElementById("global_collision_btn");
+var global_collision_icon = document.getElementById("global_collision_icon");
 
 const STD_HEIGHT = 55;
 const STD_CENTER = 155;
