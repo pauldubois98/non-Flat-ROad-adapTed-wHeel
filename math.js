@@ -26,7 +26,36 @@ function radius(x){
     return ( road[i][1]+(x-road[i][0])*(road[i+1][1]-road[i][1])/(road[i+1][0]-road[i][0]) ) - (road_canvas.height-STD_CENTER);
 }
 
-
+function local_collision(UPDATE_ICON=true){
+    local_collision_points_indexes = [];
+    var i=2;
+    while(road[i+1][0]<=road_pattern_length){
+        j = i-1;
+        k = i+1;
+        var A = Math.sqrt( ((road[i][0]-road[j][0])**2) 
+                         + ((road[i][1]-road[j][1])**2) );
+        var B = Math.sqrt( ((road[i][0]-road[k][0])**2) 
+                         + ((road[i][1]-road[k][1])**2) );
+        var C = Math.sqrt( ((road[k][0]-road[j][0])**2) 
+                         + ((road[k][1]-road[j][1])**2) );
+        // C**2 = A**2 + B**2 - 2*A*C*cos(angle_C)
+        var angle_C = Math.acos( ( (A**2) + (B**2) - (C**2) ) / (2*A*B) );
+        if(C<Math.sqrt((A**2) + (B**2))){
+            local_collision_points_indexes = local_collision_points_indexes.concat([i]);
+        }
+        i++;
+    }
+    
+    local_collision_points_indexes = local_collision_points_indexes.sort();
+    if(UPDATE_ICON){
+        // if(local_collision_points_indexes.length != 0){
+        //     local_collision_icon.src="svg/local_red_24dp.svg"
+        // } else{
+        //     local_collision_icon.src="svg/local_green_24dp.svg"
+        // }
+    }
+    return local_collision_points_indexes.length != 0;
+}
 
 function calculate_wheel(STEP_SIZE=2){
     road = road.sort(function (a,b){return a[0]-b[0]});

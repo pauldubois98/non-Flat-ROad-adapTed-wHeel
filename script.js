@@ -61,6 +61,7 @@ var demo_wheel_bis_angle = 0;
 var DEMO_MOUSE_DOWN_BIS = false;
 var DEMO_MOUSE_DOWN_BIS_X = 0;
 
+var local_collision_points_indexes = [];
 
 
 demo_canvas.addEventListener('mousedown', function(event) {
@@ -300,6 +301,7 @@ function calculate_and_draw(){
     redrawDemoBis();
     redrawRoad();
     redrawDemo();
+    local_collision();
 }
 
 
