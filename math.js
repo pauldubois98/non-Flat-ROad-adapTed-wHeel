@@ -122,6 +122,17 @@ function global_collision(TOL_ANGLE=Math.PI/6, UPDATE_ICON=true){
     }
     return global_collision_points_indexes.length != 0;
 }
+function collision(TOL_ANGLE=Math.PI/6, UPDATE_ICON=true){
+    var collision = (local_collision_points_indexes.length != 0) || (global_collision_points_indexes.length != 0)
+    if(UPDATE_ICON){
+        if(collision){
+            collision_icon.src="svg/collision_red_24dp.svg"
+        } else{
+            collision_icon.src="svg/collision_green_24dp.svg"
+        }
+    }
+    return collision
+}
 
 function calculate_wheel(STEP_SIZE=2){
     road = road.sort(function (a,b){return a[0]-b[0]});
@@ -145,9 +156,9 @@ function calculate_wheel(STEP_SIZE=2){
             [0,road_canvas.height-STD_HEIGHT],
             [road_canvas.width,road_canvas.height-STD_HEIGHT],
             [road_canvas.width,road_canvas.height]];
-        ROAD_DRAWING=true;
-        ROAD_EDITING=false;
-        edit_road_btn.textContent = "Edit Road OFF";
+        ROAD_DRAWING=false;
+        ROAD_EDITING=true;
+        edit_road_btn.innerHTML = "<img src=\"svg/gesture_black_24dp.svg\" class=\"icon\"> Edit ON";
         calculate_and_draw();
     } else{
         x -= STEP_SIZE;
