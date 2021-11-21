@@ -45,7 +45,35 @@ function local_collision(UPDATE_ICON=true){
         }
         i++;
     }
-    
+    // last check has to be done differently
+    if(Math.abs( (road_canvas.height-road_height(road_pattern_length)) - road[1][1] ) > 1){
+        if( (road_canvas.height-road_height(road_pattern_length)) < road[1][1]){
+            // Need a negative slope at the beginning & at the end
+            if(road[1][1]>road[2][1] || road[i][1]>(road_canvas.height-road_height(road_pattern_length))){
+                local_collision_points_indexes = local_collision_points_indexes.concat([1]);
+            }
+            // console.log("neg",i)
+        } else{
+            // Need a positive slope at the beginning & at the end
+            if(road[1][1]<road[2][1] || road[i][1]<(road_canvas.height-road_height(road_pattern_length))){
+                local_collision_points_indexes = local_collision_points_indexes.concat([1]);
+            }
+            // console.log("pos",i)
+        }
+    } else{
+        // console.log("snapped",i)
+        var j=i-1;
+        var k=2;
+        var A = Math.sqrt( ((road_pattern_length-road[j][0])**2) 
+                         + (((road_canvas.height-road_height(road_pattern_length))-road[j][1])**2) );
+        var B = Math.sqrt( ((road_pattern_length-(road_pattern_length+road[k][0]))**2) 
+                         + (((road_canvas.height-road_height(road_pattern_length))-road[k][1])**2) );
+        var C = Math.sqrt( (((road_pattern_length+road[k][0])-road[j][0])**2) 
+                         + ((road[k][1]-road[j][1])**2) );
+        if(C<Math.sqrt((A**2) + (B**2))){
+            local_collision_points_indexes = local_collision_points_indexes.concat([i]);
+        }
+    }
     local_collision_points_indexes = local_collision_points_indexes.sort();
     if(UPDATE_ICON){
         // if(local_collision_points_indexes.length != 0){
