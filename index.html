@@ -22,24 +22,47 @@
     </header>
     <main>
         <nav>
-            <button id="new_road_btn"><img src="svg/restart_black_24dp.svg" class="icon">New Wheel</button>
-            <button id="edit_road_btn"><img src="svg/gesture_black_24dp.svg" class="icon">Edit ON</button>
-            <span style="width: 60px;"></span>
-            <input id="number_spikes" type="number" min="1" max="10" placeholder="2" value="2" step="1" style="width: 50px;">
-            <button id="draw_spikes_btn"><img src="svg/spikes_black_24dp.svg" class="icon">Draw Spikes</button>
-            <span style="width: 20px;"></span>
-            <input id="number_squares" type="number" min="1" max="10" placeholder="2" value="2" step="1" style="width: 50px;">
-            <button id="draw_square_btn"><img src="svg/square_black_24dp.svg" class="icon">Draw Square</button>
-            <span style="width: 20px;"></span>
-            <input id="number_sine" type="number" min="1" max="10" placeholder="2" value="2" style="width: 50px;">
-            <button id="draw_sine_btn"><img src="svg/sine_black_24dp.svg" class="icon">Draw Sine</button>
-            <span style="width: 30px;"></span>
-            <button id="snap_btn"><img src="svg/snap_black_24dp.svg" class="icon">Snap Path Ends</button>
+            <div id="nav-left">
+                <div>
+                    <button id="edit_road_btn"><img src="svg/gesture_black_24dp.svg" class="icon">Edit ON</button>
+                </div>
+                <div>
+                    <p>Spikes:</p>
+                    <input id="number_spikes" type="number" min="1" max="10" placeholder="2" value="2" step="1" style="width: 50px;">
+                </div>
+                <div>
+                    <p>Squares:</p>
+                    <input id="number_squares" type="number" min="1" max="10" placeholder="2" value="2" step="1" style="width: 50px;">
+                </div>
+                <div>
+                    <p>Oscillations:</p>
+                    <input id="number_sine" type="number" min="1" max="10" placeholder="2" value="2" style="width: 50px;">
+                </div>
+                <div>
+                </div>
+            </div>
+            <div id="nav-right">
+                <div>
+                    <button id="new_road_btn"><img src="svg/restart_black_24dp.svg" class="icon">New Wheel</button>
+                </div>
+                <div>
+                    <button id="draw_spikes_btn"><img src="svg/spikes_black_24dp.svg" class="icon">Draw Spikes</button>
+                </div>
+                <div>
+                    <button id="draw_square_btn"><img src="svg/square_black_24dp.svg" class="icon">Draw Square</button>
+                </div>
+                <div>
+                    <button id="draw_sine_btn"><img src="svg/sine_black_24dp.svg" class="icon">Draw Sine</button>
+                </div>
+                <div>
+                    <button id="snap_btn"><img src="svg/snap_black_24dp.svg" class="icon">Snap Path Ends</button>
+                </div>
+            </div>
         </nav>
         <br>
         <canvas id="road_canvas" height="200" width="750"></canvas>
         <br>
-        <p>(right click to add/delete a point; left click to move a point)</p>
+        <p class="expl">(right click to add/delete a point; left click to move a point)</p>
         <br>
         <canvas id="demo_canvas" height="310" width="850"></canvas>
         <br>
