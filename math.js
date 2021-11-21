@@ -84,6 +84,44 @@ function local_collision(UPDATE_ICON=true){
     }
     return local_collision_points_indexes.length != 0;
 }
+function global_collision(TOL_ANGLE=Math.PI/6, UPDATE_ICON=true){
+    global_collision_points_indexes = []
+    if(demo_road!=undefined){
+        var i = 0;
+        var x = 0;
+        while(x<road_pattern_length){
+            x = demo_road[i][0];
+            for(var j=0; j<wheel_polar.length; j++){
+                var an = (wheel_polar[j][0]-demo_road[i][2]+(3.5*Math.PI))%(2*Math.PI);
+                if( an < 1.5*Math.PI - TOL_ANGLE || an > 1.5*Math.PI + TOL_ANGLE){
+                    var r = wheel_polar[j][1];
+                    var wheel_y = demo_canvas.height-STD_CENTER-Math.sin(an)*r;
+                    var road_x = (x+Math.cos(an)*r + road_pattern_length)%road_pattern_length;
+                    var road_y = demo_canvas.height - road_height(road_x);
+                    if(wheel_y > road_y){
+                        global_collision_points_indexes = global_collision_points_indexes.concat([[i,j,an]]);
+                        // // For debug:
+                        // demo_ctx.beginPath();
+                        // demo_ctx.moveTo(x,STD_CENTER);
+                        // // demo_ctx.lineTo(road_x,road_y);
+                        // demo_ctx.lineTo(road_x,wheel_y);
+                        // demo_ctx.strokeStyle = "#000";
+                        // demo_ctx.stroke();
+                    }
+                }
+            }
+            i++;
+        }
+    }
+    if(UPDATE_ICON){
+        // if(global_collision_points_indexes.length != 0){
+        //     global_collision_icon.src="svg/global_red_24dp.svg"
+        // } else{
+        //     global_collision_icon.src="svg/global_green_24dp.svg"
+        // }
+    }
+    return global_collision_points_indexes.length != 0;
+}
 
 function calculate_wheel(STEP_SIZE=2){
     road = road.sort(function (a,b){return a[0]-b[0]});

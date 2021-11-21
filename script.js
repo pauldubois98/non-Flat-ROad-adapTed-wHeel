@@ -62,6 +62,7 @@ var DEMO_MOUSE_DOWN_BIS = false;
 var DEMO_MOUSE_DOWN_BIS_X = 0;
 
 var local_collision_points_indexes = [];
+var global_collision_points_indexes = [];
 
 
 demo_canvas.addEventListener('mousedown', function(event) {
@@ -302,6 +303,7 @@ function calculate_and_draw(){
     redrawRoad();
     redrawDemo();
     local_collision();
+    global_collision();
 }
 
 
