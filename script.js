@@ -209,17 +209,17 @@ new_road_btn.addEventListener('click', function(event){
             [road_canvas.width,road_canvas.height-STD_HEIGHT],
             [road_canvas.width,road_canvas.height]];
     ROAD_EDITING=true;
-    edit_road_btn.textContent = "Edit Road ON";
+    edit_road_btn.innerHTML = "<img src=\"svg/gesture_black_24dp.svg\" class=\"icon\"> Edit ON";
     calculate_and_draw();
 });
 edit_road_btn.addEventListener('click', function(event){
     ROAD_DRAWING=false;
     if (ROAD_EDITING){
         ROAD_EDITING=false;
-        edit_road_btn.textContent = "Edit Road OFF";
+        edit_road_btn.innerHTML = "<img src=\"svg/no_gesture_black_24dp.svg\" class=\"icon\"> Edit OFF";
     } else{
         ROAD_EDITING=true;
-        edit_road_btn.textContent = "Edit Road ON";
+        edit_road_btn.innerHTML = "<img src=\"svg/gesture_black_24dp.svg\" class=\"icon\"> Edit ON";
     };
     calculate_and_draw();
 });
