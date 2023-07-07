@@ -41,6 +41,7 @@ const STD_CENTER = 155;
 const STD_RADIUS = STD_CENTER-STD_HEIGHT;
 var ROAD_EDITING = true;
 var ROAD_EDITING_ON = false;
+var ROAD_EDITING_MOVE = false;
 var road = [[0,road_canvas.height],
             [0,road_canvas.height-STD_HEIGHT],
             [road_canvas.width,road_canvas.height-STD_HEIGHT],
@@ -318,6 +319,15 @@ draw_sine_btn.addEventListener('click', function(event){
                         [road_canvas.width,road_canvas.height-STD_HEIGHT],
                         [road_canvas.width,road_canvas.height]]);
     calculate_and_draw();
+});
+edit_move_btn.addEventListener('click', function(event){
+    if (ROAD_EDITING_MOVE){
+        ROAD_EDITING_MOVE = false;
+        edit_move_btn.innerHTML = '<img src="svg/add_24dp.svg" class="icon">Add points';
+    } else{
+        ROAD_EDITING_MOVE = true;
+        edit_move_btn.innerHTML = '<img src="svg/move_24dp.svg" class="icon">Move points';
+    }
 });
 
 function calculate_and_draw(){
