@@ -16,14 +16,31 @@ canvas{
     margin: 1px;
     touch-action: none;
 }
-nav{
+nav div{
     display: flex;
     flex-direction: row;
+}
+#nav-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 25em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+#nav-center button{
+    width: 9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.1em;
 }
 #nav-left{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    width: 50%;
 }
 #nav-right{
     display: flex;

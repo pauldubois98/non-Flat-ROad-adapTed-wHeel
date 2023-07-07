@@ -27,50 +27,52 @@
                 <button id="new_road_btn"><img src="svg/restart_black_24dp.svg" class="icon">New Road</button>
                 <button id="edit_move_btn"><img src="svg/move_24dp.svg" class="icon">Move points</button>
             </div>
-            <div id="nav-left">
-                <div>
-                    <p>Spikes:</p>
-                    <input id="number_spikes" type="number" min="1" max="10" placeholder="2" value="2" step="1">
+            <div>
+                <div id="nav-left">
+                    <div>
+                        <p>Spikes:</p>
+                        <input id="number_spikes" type="number" min="1" max="10" placeholder="2" value="2" step="1">
+                    </div>
+                    <div>
+                        <p>Squares:</p>
+                        <input id="number_squares" type="number" min="1" max="10" placeholder="2" value="2" step="1">
+                    </div>
+                    <div>
+                        <p>Oscillations:</p>
+                        <input id="number_sine" type="number" min="1" max="10" placeholder="2" value="2">
+                    </div>
+                    <div>
+                    </div>
+                    <div>
+                        <button id="collision_btn">
+                            <!-- Collision -->
+                            <img id="collision_icon" src="svg/collision_black_24dp.svg">
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <p>Squares:</p>
-                    <input id="number_squares" type="number" min="1" max="10" placeholder="2" value="2" step="1">
-                </div>
-                <div>
-                    <p>Oscillations:</p>
-                    <input id="number_sine" type="number" min="1" max="10" placeholder="2" value="2">
-                </div>
-                <div>
-                </div>
-                <div>
-                    <button id="collision_btn">
-                        <!-- Collision -->
-                        <img id="collision_icon" src="svg/collision_black_24dp.svg">
-                    </button>
-                </div>
-            </div>
-            <div id="nav-right">
-                <div>
-                    <button id="draw_spikes_btn"><img src="svg/spikes_black_24dp.svg" class="icon">Draw Spikes</button>
-                </div>
-                <div>
-                    <button id="draw_square_btn"><img src="svg/square_black_24dp.svg" class="icon">Draw Square</button>
-                </div>
-                <div>
-                    <button id="draw_sine_btn"><img src="svg/sine_black_24dp.svg" class="icon">Draw Sine</button>
-                </div>
-                <div>
-                    <button id="snap_btn"><img src="svg/snap_black_24dp.svg" class="icon">Snap Path Ends</button>
-                </div>
-                <div>
-                    <button id="local_collision_btn">
-                        <!-- Local Collision -->
-                        <img id="local_collision_icon" src="svg/local_black_24dp.svg">
-                    </button>
-                    <button id="global_collision_btn">
-                        <img id="global_collision_icon" src="svg/global_black_24dp.svg">
-                        <!-- Global Collision -->
-                    </button>
+                <div id="nav-right">
+                    <div>
+                        <button id="draw_spikes_btn"><img src="svg/spikes_black_24dp.svg" class="icon">Draw Spikes</button>
+                    </div>
+                    <div>
+                        <button id="draw_square_btn"><img src="svg/square_black_24dp.svg" class="icon">Draw Square</button>
+                    </div>
+                    <div>
+                        <button id="draw_sine_btn"><img src="svg/sine_black_24dp.svg" class="icon">Draw Sine</button>
+                    </div>
+                    <div>
+                        <button id="snap_btn"><img src="svg/snap_black_24dp.svg" class="icon">Snap Path Ends</button>
+                    </div>
+                    <div>
+                        <button id="local_collision_btn">
+                            <!-- Local Collision -->
+                            <img id="local_collision_icon" src="svg/local_black_24dp.svg">
+                        </button>
+                        <button id="global_collision_btn">
+                            <img id="global_collision_icon" src="svg/global_black_24dp.svg">
+                            <!-- Global Collision -->
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
