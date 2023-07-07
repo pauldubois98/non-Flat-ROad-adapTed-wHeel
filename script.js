@@ -1,17 +1,23 @@
 var road_canvas = document.getElementById("road_canvas");
 var road_ctx = road_canvas.getContext('2d');
-var roadLeft = road_canvas.offsetLeft + road_canvas.clientLeft;
-var roadTop = road_canvas.offsetTop + road_canvas.clientTop;
-
 var demo_canvas = document.getElementById("demo_canvas");
 var demo_ctx = demo_canvas.getContext('2d');
-var demoLeft = demo_canvas.offsetLeft + demo_canvas.clientLeft;
-var demoTop = demo_canvas.offsetTop + demo_canvas.clientTop;
-
 var demo_canvas_bis = document.getElementById("demo_canvas_bis");
 var demo_ctx_bis = demo_canvas_bis.getContext('2d');
-var demoLeft_bis = demo_canvas_bis.offsetLeft + demo_canvas_bis.clientLeft;
-var demoTop_bis = demo_canvas_bis.offsetTop + demo_canvas_bis.clientTop;
+var roadLeft;
+var roadTop;
+var demoLeft;
+var demoTop;
+var demoLeft_bis;
+var demoTop_bis;
+document.addEventListener('DOMContentLoaded', function() {
+    demoLeft = demo_canvas.offsetLeft + demo_canvas.clientLeft;
+    demoTop = demo_canvas.offsetTop + demo_canvas.clientTop;
+    demoLeft_bis = demo_canvas_bis.offsetLeft + demo_canvas_bis.clientLeft;
+    demoTop_bis = demo_canvas_bis.offsetTop + demo_canvas_bis.clientTop;
+    roadLeft = road_canvas.offsetLeft + road_canvas.clientLeft;
+    roadTop = road_canvas.offsetTop + road_canvas.clientTop;
+});
 
 var new_road_btn = document.getElementById("new_road_btn");
 var edit_road_btn = document.getElementById("edit_road_btn");
