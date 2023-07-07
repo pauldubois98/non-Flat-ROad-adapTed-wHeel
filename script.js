@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     demoTop_bis = demo_canvas_bis.offsetTop + demo_canvas_bis.clientTop;
     roadLeft = road_canvas.offsetLeft + road_canvas.clientLeft;
     roadTop = road_canvas.offsetTop + road_canvas.clientTop;
+    calculate_and_draw();
 });
 
 var new_road_btn = document.getElementById("new_road_btn");
@@ -350,7 +351,3 @@ function calculate_and_draw(){
     global_collision();
     collision();
 }
-
-
-
-calculate_and_draw();
