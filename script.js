@@ -170,7 +170,7 @@ addListenerMulti(road_canvas, 'pointerdown mousedown', function(event) {
         if(editing_point_index==0 || editing_point_index==road.length-1){
             editing_point_index = -1;
         }
-        if(event.button == 0 && editing_point_index>=0){
+        if(ROAD_EDITING_MOVE && editing_point_index>=0){
             ROAD_EDITING_ON = true;
             editing_start_x = x;
             editing_start_y = y;
@@ -178,7 +178,7 @@ addListenerMulti(road_canvas, 'pointerdown mousedown', function(event) {
                 road[editing_point_index][0],
                 road[editing_point_index][1], 5, "#FFF0", "#F00");
         }
-        if(event.button == 2 && editing_point_index==-1){
+        if(!ROAD_EDITING_MOVE && editing_point_index==-1){
             var i = 0;
             while(i<road.length && road[i][0]<=x){
                 i++;
