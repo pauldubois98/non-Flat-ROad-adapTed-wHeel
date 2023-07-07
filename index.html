@@ -22,10 +22,12 @@
     </header>
     <main>
         <nav>
+            <div id="nav-center">
+                <button id="edit_road_btn"><img src="svg/gesture_black_24dp.svg" class="icon">Edit ON</button>
+                <button id="new_road_btn"><img src="svg/restart_black_24dp.svg" class="icon">New Road</button>
+                <button id="edit_move_btn"><img src="svg/move_24dp.svg" class="icon">Move points</button>
+            </div>
             <div id="nav-left">
-                <div>
-                    <button id="edit_road_btn"><img src="svg/gesture_black_24dp.svg" class="icon">Edit ON</button>
-                </div>
                 <div>
                     <p>Spikes:</p>
                     <input id="number_spikes" type="number" min="1" max="10" placeholder="2" value="2" step="1">
@@ -48,9 +50,6 @@
                 </div>
             </div>
             <div id="nav-right">
-                <div>
-                    <button id="new_road_btn"><img src="svg/restart_black_24dp.svg" class="icon">New Wheel</button>
-                </div>
                 <div>
                     <button id="draw_spikes_btn"><img src="svg/spikes_black_24dp.svg" class="icon">Draw Spikes</button>
                 </div>
