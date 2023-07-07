@@ -39,6 +39,18 @@ var global_collision_icon = document.getElementById("global_collision_icon");
 const STD_HEIGHT = 55;
 const STD_CENTER = 155;
 const STD_RADIUS = STD_CENTER-STD_HEIGHT;
+var SELECT_DISTANCE = 5;
+if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/webOS/i) ||
+    navigator.userAgent.match(/iPhone/i) ||
+    navigator.userAgent.match(/iPad/i) ||
+    navigator.userAgent.match(/iPod/i) ||
+    navigator.userAgent.match(/BlackBerry/i) ||
+    navigator.userAgent.match(/Windows Phone/i)
+  ) {
+    SELECT_DISTANCE = 20;
+}
 var ROAD_EDITING = true;
 var ROAD_EDITING_ON = false;
 var ROAD_EDITING_MOVE = false;
@@ -160,10 +172,10 @@ addListenerMulti(road_canvas, 'pointerdown mousedown', function(event) {
         for(i=0; i<road.length; i++){
             var pt = road[i];
             var dist = Math.sqrt( (x-pt[0])**2 + (y-pt[1])**2 );
-            if(dist<10 && editing_point_index==-1){
+            if(dist<SELECT_DISTANCE*2 && editing_point_index==-1){
                 editing_point_index = -2;
             }
-            if(dist<5){
+            if(dist<SELECT_DISTANCE){
                 editing_point_index = i;
             }
         }
